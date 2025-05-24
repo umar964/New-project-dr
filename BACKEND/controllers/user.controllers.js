@@ -2,6 +2,7 @@ const userModel = require('../Models/user_model');
 const userService = require('../services/user.services');
 const {validationResult, cookie} = require('express-validator');
 const blacklistToken = require('../Models/blacklistToken');
+const drModel = require('../Models/drModel');
 
 module.exports.registerUser  = async(req,res,next)=>{
     const errors = validationResult(req);
@@ -10,6 +11,12 @@ module.exports.registerUser  = async(req,res,next)=>{
     }
 
     const { fullname,email,password} = req.body;
+
+    const isUserAlreadyExist = await userModel.findOne({email});
+    if(isUserAlreadyExist){
+       return res.status(201).json("User already exist,Please login.")
+    }
+
     const hashedPassword = await userModel.hashPassword(password);
 
     const user = await userService.createUser({
@@ -18,10 +25,9 @@ module.exports.registerUser  = async(req,res,next)=>{
         email,
         password:hashedPassword
     });
-    const token = user.generateAuthToken();
-    res.cookie("token", token);
-
-    res.status(201).json({token,user});
+    const userToken = user.generateAuthToken();
+    res.cookie("userToken", userToken);
+    res.status(201).json({userToken,user});
    
 
 
@@ -49,10 +55,10 @@ module.exports.loginUser  = async(req,res,next)=>{
  
 
     
-    const token = user.generateAuthToken();
-    res.cookie('token',token);
+    const  userToken = user.generateAuthToken();
+    res.cookie('userToken',userToken);
      
-    res.status(200).json({token,user});
+    res.status(200).json({userToken,user});
 }
 
 
@@ -61,10 +67,20 @@ module.exports.userProfile =  async(req,res,next)=>{
 }
 
 module,exports.logoutUser = async(req,res,next)=>{
-    res.clearCookie('token');
-    const token = req.cookies.token;
-    await blacklistToken.create({token});
+    res.clearCookie('userToken');
+    const  userToken = req.cookies.userToken;
+    await blacklistToken.create({userToken});
     res.status(200).json("Logout,Sucessfully.");
 
 
+}
+
+module.exports.fetchAllDoctor = async(req,res,next)=>{
+    try{
+        const allDoctors = await drModel.find();
+        res.json(allDoctors);
+        
+    }catch(error){
+        res.status(500).json({message:"Error fetching doctors at user controllers"});
+    }
 }

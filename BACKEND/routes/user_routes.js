@@ -3,6 +3,7 @@ const router = express.Router();
 const LoggedInMiddleWare = require('../MiddleWare/auth');
 const { body } = require("express-validator");
 const userController = require('../controllers/user.controllers');
+const drModel = require('../Models/drModel');
  
 
 router.post('/register',[
@@ -21,9 +22,11 @@ router.post('/login',[
     userController.loginUser
 )
 
-router.get('/profile',LoggedInMiddleWare.isLoggedIn,userController.userProfile);
+router.get('/profile',LoggedInMiddleWare.isLoggedInUser,userController.userProfile);
 
-router.get('/logout',LoggedInMiddleWare.isLoggedIn,userController.logoutUser);
+router.get('/logout',LoggedInMiddleWare.isLoggedInUser,userController.logoutUser);
+
+router.get("/alldoctors",userController.fetchAllDoctor);
 
 
 module.exports  = router;

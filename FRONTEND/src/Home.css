@@ -1,0 +1,243 @@
+ body {
+    margin: 0;
+    color: #333;
+    font-family: Arial, sans-serif;
+    /* background-color: hwb(220 95% 4% / 0.658); */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+ 
+     
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
+    max-width: 100vw;
+     
+   
+        
+    overflow-x: hidden;
+    border-radius: 8px;
+    
+        
+      
+  }
+
+ 
+  
+  .home {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f8f9fa;
+    
+    padding-top: 60px;
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    max-width: 100vw;
+    border-radius: 8px;
+      
+   
+ 
+    
+  }
+  
+  /* Header Section */
+ 
+
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: whitesmoke; /* Blue */
+    color: black;
+    padding: 10px;
+    box-sizing: border-box;
+    position: fixed; /* Fix the header at the top */
+    top: 0; /* Position at the top */
+    left: 0; /* Align to the left */
+    width: 100%;  
+    z-index: 1000; /* Ensure the header stays above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    border-radius: 8px;
+}
+  
+  .logo {
+    font-size: 25px;
+    font-weight: bold;
+    
+  }
+  
+  .icons span {
+    margin-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* Search Bar */
+  .search-bar input {
+    width: 95%;
+    max-width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  /* Quick-Action Buttons */
+  .quick-actions {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .action-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    
+    cursor: pointer;
+  }
+  
+  .action-btn:hover {
+    background-color: black;
+  }
+  
+   
+  .featured-doctors {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  
+  .doctor-card {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+   
+  }
+  
+  .doctor-card img {
+    border-radius: 50%;
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+  }
+  
+  .doctor-info h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .doctor-info p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  /* Health Tips */
+  .health-tips {
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  
+  .health-tips h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .health-tips p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  /* Footer Navigation */
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+     
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    left: 0;
+  }
+  
+  .footer span {
+    cursor: pointer;
+  }
+
+  /* Floating Action Button (FAB) */
+.fab-container {
+    position: fixed;
+    top: 10px;
+    right: 80px;
+    z-index: 1000;
+  }
+  
+  .fab {
+     width: 40px;
+     height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007BFF;  
+    color: white;
+    border: none;
+    text-decoration: none;
+    text-decoration-line: none;
+    font-size: 30px;
+    cursor: pointer;
+     
+  }
+  
+  .fab-menu {
+    position: fixed;
+     
+    top: 70px;
+    right: 10px;
+    
+    height: 70vh;
+    max-height:70vh;
+    display: flex;
+    width: 80vw;
+    max-width: 80vw;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .fab-action {
+    background-color: black; /* Orange */
+    display: flex;
+    align-items: center;
+    
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .fab-action:hover {
+    background-color: #e69500; /* Darker orange */
+  }
