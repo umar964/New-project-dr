@@ -8,7 +8,7 @@ module.exports.createDr = async({
     }
 
     
-    const dr = drModel.create({
+    const dr = await drModel.create({
         fullname:{
             firstname,
             lastname

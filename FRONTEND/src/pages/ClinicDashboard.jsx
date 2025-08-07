@@ -21,10 +21,12 @@ const ClinicDashboard = () => {
                 setClinic(response.data);
                  
     
-                const responce1 = await axios.get(`http://localhost:3000/order/fetch-orders/${clinicId}`);
-                console.log(responce1.data)
-                setOrder(responce1.data);
-                console.log("order are",orders)
+                const response1 = await axios.get(`http://localhost:3000/order/fetch-orders/${clinicId}`);
+                 
+                 const pendingOrders = response1.data.filter(order => order.status.toLowerCase() === 'pending');
+                 setOrder(pendingOrders);
+                // setOrder(response1.data)
+                
     
                 setLoading(false);
             }catch(error)
@@ -38,21 +40,8 @@ const ClinicDashboard = () => {
 
 
     const handleOrderStatus = async(orderId,newStatus)=>{
-    
-
       const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/order/updateOrderStatus/${orderId}`,
       {newStatus});
-
-      if (newStatus.toLowerCase() === "rejected" || newStatus.toLowerCase() === "completed")
-        {
-        setOrder((prevOrders) =>
-          prevOrders.filter((order) =>
-            order._id !== orderId));
-       }else{
-        return
-       }
-
-     
       }
 
 
@@ -89,6 +78,7 @@ const ClinicDashboard = () => {
             <div className="orderStatus"  style={{width:'200px', height:'200px', backgroundColor:"#b2b2b2", paddingLeft:'12px'}}>
               <Link to= {`/all-orders/${clinicId}?status=completed`}>Completed</Link> <br />
               <Link  to= {`/all-orders/${clinicId}?status=accepted`}>Accepted</Link> <br />
+              <Link  to= {`/all-orders/${clinicId}?status=ready`}>Ready</Link> <br />
               <Link  to= {`/all-orders/${clinicId}?status=rejected`}>Rejected</Link>
 
             </div>
@@ -153,16 +143,7 @@ const ClinicDashboard = () => {
                                  
                             </li>
                             </div>
-                            <div className="right"  style={{  width:"50%", fontSize:"1.1rem", marginTop:"-20px"}} >
-                                <h2>Delivery Address</h2>
-                                City: {order.deliveryAddress?.city} <br />
-                                State: {order.deliveryAddress?.state} <br />
-                                Street: {order.deliveryAddress?.street} <br />
-                                Postal Code: {order.deliveryAddress?.postalCode} <br />
-                                Exact Location: {order.deliveryAddress?.exactLocation} <br />
-                                Contact No: {order.deliveryAddress?.contactno}<br/>
-                                Date : {new Date(order.createdAt).toLocaleDateString()}
-                            </div>
+                             
                              
                           </div>
                           <div className="checkBox" style={{height:'60px',right:'0px', width:'36%', background:'#b2b2b2', paddingLeft:'12px', fontSize:'1.3rem'}}>
@@ -173,16 +154,12 @@ const ClinicDashboard = () => {
                            </button>
 
                            <button onClick={()=>handleOrderStatus(order._id,"Accepted")}>
-                            Accepted
+                            Accept
                            </button>
 
-                           <button onClick={()=>handleOrderStatus(order._id,"Ready")}>
-                            Ready for deliver
-                           </button>
+                         
 
-                           <button onClick={()=>handleOrderStatus(order._id,"Completed")}>
-                            Complete
-                           </button>
+                         
  
                           </div>
                          </div>

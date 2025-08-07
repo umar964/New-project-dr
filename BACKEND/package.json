@@ -20,6 +20,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
+    "geolib": "^3.3.4",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -29,6 +30,7 @@
     "react-leaflet": "^5.0.0",
     "sharp": "^0.33.5",
     "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tesseract.js": "^6.0.0"
   }
 }

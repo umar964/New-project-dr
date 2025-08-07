@@ -31,12 +31,12 @@ module.exports.searchClinics = async (latitude, longitude, radius) => {
   }
 };
 
-module.exports.createClinic = async(name,email,password,location,coordinates)=>{
+module.exports.createClinic = async(name,email,password,location,pincode,coordinates)=>{
  try{
     const hashedPassword = await clinicModel.clinicHashPassword(password);
      
     const clinic  =  await clinicModel.create({
-        name,email,password:hashedPassword,location,
+        name,email,password:hashedPassword,location,pincode,
         coordinates:{
             type: "Point",
             coordinates: coordinates,

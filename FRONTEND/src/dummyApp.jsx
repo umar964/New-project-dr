@@ -1,47 +1,3 @@
-import React from 'react';
-import { useEffect, useRef } from "react";
-import { io } from "socket.io-client";
-import { useSocket } from "./context/socketContext";
-import {Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Userlogin from './pages/Userlogin';
-import UserSignUp from './pages/UserSignUp';
-import DrLogin from './pages/DrLogin';
-import DrsignUp from './pages/DrsignUp';
-import { UserProvider } from './context/UserContext';
-import UserProtected from './pages/UserProtected';
-import UserLogout from './pages/UserLogout';
-import DrProtected from './pages/DrProtected';
-import DrHome from './pages/DrHome';
-import AllappointDr from './pages/AllappointDr';
-import UserAppointments from './pages/UserAppointments';
-import FindClinic from './pages/FindClinic';
-import CreateClinic from './pages/CreateClinic';
-import RequestConsultation from './pages/RequestConsultation'
-import PendingConsultation from './pages/PendingConsultation';
-import DrLogout from './pages/DrLogout';
-import DrActiveAppointment from './pages/DrActiveAppointment';
-import MedCheck from './pages/MedCheck';
-import AllClinics from './pages/AllClinics';
-import ClinicDetails from './pages/ClinicDetails';
-import ClinicLogin from './pages/ClinicLogin';
-import ClinicDashboard from './pages/ClinicDashboard';
-import ClinicLogout from './pages/ClinicLogout';
-import AddMyClinic from './pages/AddMyClinic';
-import PendingDr from './pages/PendingDr';
-import MyClinicDr from './pages/MyClinicDr';
-import PendingClinicDr from './pages/PendingClinicDr';
-import OrderMedicine from './pages/OrderMedicine';
-import MyMedicine from './pages/MyMedicine';
-import AllMedOrders from './pages/AllMedOrders';
-import DelBoySignUp from './pages/DelBoySignUp';
-import DelBoyHome from './pages/DelBoyHome';
-import DelBoyLogIn from './pages/DelBoyLogIn';
-import AllNotification from './pages/AllNotification';
-import ReceiveOrderPage from './pages/ReceiveOrderPage';
-import LocalAppointment from './pages/LocalAppointment';
-
-
 function App() {
 
   const socketRef = useRef(null);
@@ -121,7 +77,6 @@ function App() {
     <Route path = "/del-boy-logIn" element = {<DelBoyLogIn/>}/>
     <Route path = "/all-notification" element={<AllNotification/>}/>
     <Route path = "/receive-order" element={<ReceiveOrderPage/>}/>
-    <Route path = "/local-appointment" element={<LocalAppointment/>}/>
         
     </Routes>
 
@@ -131,4 +86,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+

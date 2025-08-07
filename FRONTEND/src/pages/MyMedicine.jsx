@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const MyMedicine = () => {
   const userId = localStorage.getItem('userId');
+  const[otp,setOtp] = useState('')
   const[orders,setOrders] = useState('');
 
    useEffect(() =>{
@@ -25,6 +26,16 @@ const MyMedicine = () => {
  
         fetchOrders();
      },[userId]);
+
+    const handleGetOtp = async(orderId)=>{
+      try{
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/order/generate-otp/${orderId}`);
+        const otp = response.data
+        setOtp(prev => ({ ...prev, [orderId]: otp }));
+      }catch(error){
+        setError("Failed to generate OTP")
+      }
+    }
  
     
   return (
@@ -32,21 +43,15 @@ const MyMedicine = () => {
       flexDirection:"column", alignItems:"center"
   }}>
 
- 
-
-   
-
-
-
- 
-      <div className="orders-list" style={{width:"85vw", fontSize:"1em"}}>
+  
+    <div className="orders-list" style={{width:"85vw", fontSize:"1em"}}>
           <h3>Orders</h3>
-          {orders.length > 0 ? (
+        {orders.length > 0 ? (
               <ul>
                   {orders.map((order) => (
                       
                    <div className="allOrders" style={{ padding:'20px', display:'flex', flexDirection:'column', alignItems:'end'}}>
-                      <div className="orders" style={{height:"250px" ,background:"#b2b2b2", display:"flex", width:"80vw", justifyContent:"space-between", marginTop:"1px", padding:"20px"}}>
+                      <div className="orders" style={{height:"350px" ,background:"#b2b2b2", display:"flex", width:"80vw", justifyContent:"space-between", marginTop:"1px", padding:"20px"}}>
                       <div className="left" style={{  width:"50%"}}>
                       <li key={order._id}>
                           <strong>Medicine:</strong> {order.medicine} <br />
@@ -55,7 +60,14 @@ const MyMedicine = () => {
                           {/* <strong>Ordered from:</strong> {order.us}<br /> */}
                           <p><strong>Status:</strong> {order.status}</p><br />
                            <strong>Comment:{order.comment}</strong> <br />
-                           <strong>Clinic Reply: {order.clinicReply}</strong>
+                           <strong>Clinic Reply: {order.clinicReply}</strong> <br />
+                           <p><strong>Order Id: {order._id}</strong></p>
+                            {order.status === "Received" && (
+                                <>
+                                <button  onClick={()=>handleGetOtp(order._id)}>Get OTP</button>
+                                <p><strong>OTP: {otp[order._id]}</strong></p>
+                                </>
+                            )}
 
                            
                       </li>

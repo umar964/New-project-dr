@@ -11,17 +11,17 @@ const clinicModel = require('../Models/clinicModel')
 router.get('/searchClinic',LoggedInMiddleWare.isAuthorized,clinicController.searchClinics);
 
 router.post('/createclinic',async(req,res)=>{
-     const {name,email,password,location,coordinates} = req.body;
+     const {name,email,password,location,pincode,coordinates} = req.body;
  
  try{
-    if(!name || !email || !password || !location || !coordinates  || !coordinates.coordinates){
+    if(!name || !email || !password || !location || !pincode|| !coordinates  || !coordinates.coordinates){
 
          
 
         return res.status(400).json({ error: 'Missing required fields' });
     }
     const [longitude, latitude] = coordinates.coordinates;
-    const clinic = await createClinic(name,email,password,location,[longitude, latitude]);
+    const clinic = await createClinic(name,email,password,location,pincode,[longitude, latitude]);
     res.status(201).json(clinic);
  }catch(error){
     console.error(error);

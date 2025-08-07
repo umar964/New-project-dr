@@ -1,9 +1,9 @@
- 
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useRef} from 'react';
 import '../Home.css';
 import { Link,useNavigate } from 'react-router-dom';
 import  BookingAppointment from './BookingAppointment';
- import axios from 'axios';
+import axios from 'axios';
+import { io } from "socket.io-client";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,15 +11,13 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [name,setName] = useState("")
   const [doctors,setDoctors] = useState([]);
-  const [selectedDoctor, setselectedDoctor] = useState(null); 
-
-  
-   
-   localStorage.setItem("presentDrId",selectedDoctor);
-
-
+  const [selectedDoctor, setselectedDoctor] = useState(null);
   const clinicId = localStorage.getItem('clinicId');
   const clinicToken = localStorage.getItem('clinicToken')
+  const socketRef = useRef(null) 
+  const userId = localStorage.getItem("userId")
+
+  localStorage.setItem("presentDrId",selectedDoctor);
 
   const searchDrByName =async()=>{
     try{
@@ -33,8 +31,6 @@ const Home = () => {
       },
         
     });
-     
-
       setDoctors(response.data);
     }catch(error){
       console.error('Error fetching doctors :', error);
@@ -48,12 +44,9 @@ const Home = () => {
     .then((data)=>setDoctors(data))
     .catch((err) => console.error("Error fetching doctors", err));
     localStorage.getItem('clinicId')
-
- 
-
   },[]);
-
-
+ 
+ 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -109,10 +102,16 @@ const Home = () => {
                 <h3>Dr {doc.fullname.firstname}</h3>
                  
                 <p>{doc.specialization}</p>
-                 <button onClick={()=>setselectedDoctor(doc._id)}>
-                 Book Appointment
-                 </button>
-                 <button onClick={() => handleVideoCall(doc._id)}>Video Call</button>
+                <div className="options" style={{display:"flex", gap:"12px"}}>
+                <button onClick={()=>setselectedDoctor(doc._id)}> Book Appointment</button>
+                <button onClick={()=>navigate('/local-appointment',{
+                  state:{
+                    doctorId:doc._id,docName:doc.fullname
+                  }
+                })} className="fab-action">Book Local Appooinment</button>
+                <button onClick={() => handleVideoCall(doc._id)}>Video Call</button> <br />
+                </div>
+                  
                 <p>⭐️⭐️⭐️⭐️</p>
               </div>
             </div>
@@ -143,13 +142,14 @@ const Home = () => {
               <button onClick={handleMyClinicClick} className="fab-action">My Clinic</button>
             )}
 
-            <Link to = 'login-clinic' className="fab-action"> Clinic Login</Link>
+            <Link to = 'login-clinic' className="fab-action"> Clinic Login</Link> 
+             
 
             <button onClick={()=>navigate('/findclinic')} className="fab-action">Find Clinic Near Me</button>
 
             <Link to ='/userappointments' className="fab-action">My Appointments</Link>
 
-            <Link to ='/med-check' className="fab-action">Check Medicine</Link>
+            <Link to ='/med-check' className="fab-action">Check Medicine</Link> 
             <Link to ='/my-medicine' className="fab-action">My Medicine</Link>
 
             <button onClick={()=>navigate('/users/logout')} className="fab-action">Logout</button>

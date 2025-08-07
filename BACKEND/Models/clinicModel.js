@@ -7,6 +7,7 @@ const clinicSchema = new mongoose.Schema({
     email : {type:String,required:true,unique:true},
     password:{type:String,required:true,select:false},
     location: { type: String, required: true }, 
+    pincode:{type:Number,required:true},
     coordinates: {  
       type: { type: String, enum: ["Point"],required:true },
       coordinates: { type: [Number], required: true }, // [longitude, latitude]

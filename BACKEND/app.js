@@ -19,6 +19,8 @@ const consultationRoutes = require('./routes/consultationRoutes');
 const medicineRoutes = require('./routes/medicineRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
+const delBoyRoutes = require("./routes/delBoyRoutes");
+
 connectDB();
 
 
@@ -32,7 +34,8 @@ app.use("/appointment",appointMentRoutes);
 app.use("/clinic",clinicRoutes);
 app.use("/consultation",consultationRoutes);
 app.use("/med",medicineRoutes);
-app.use("/order",orderRoutes)
+app.use("/order",orderRoutes);
+app.use("/delBoy",delBoyRoutes);
 
  
 
