@@ -59,7 +59,13 @@ Healify is a healthcare management web application that aims to improve the inte
 
 ### Backend
 ```bash
-cd backend
+cd BACKEND
 npm install
 nodemon main.js
+```
+### Frontend
+```bash
+cd FRONTEND
+npm install
+npm run dev
 ```
